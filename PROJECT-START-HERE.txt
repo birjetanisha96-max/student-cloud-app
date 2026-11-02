@@ -1,0 +1,15 @@
+START HERE
+
+1. Extract this ZIP on your computer or EC2.
+2. Read README.md from top to bottom.
+3. Do the local application tests first.
+4. Create AWS resources only after confirming the account, region and budget.
+5. Replace all placeholders:
+   - ACCOUNT_ID
+   - AWS_REGION
+   - YOUR_GITHUB_USERNAME
+6. Create the ECR repository and push the bootstrap image before the first EKS deployment.
+7. Configure GitHub OIDC role and repository variables before pushing the CI workflow.
+8. Install Argo CD and apply argocd/application.yaml after the repository is pushed.
+
+Do not commit .pem keys, AWS access keys, passwords, or tokens.
