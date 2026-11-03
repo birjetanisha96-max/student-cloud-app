@@ -1,1 +1,23 @@
-apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: student-app\n  labels:\n    app: student-app\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: student-app\n  template:\n    metadata:\n      labels:\n        app: student-app\n    spec:\n      containers:\n        - name: student-app\n          # GitHub Actions replaces this placeholder with the ECR image URI.\n          image: 029223413380.dkr.ecr.ap-south-1.amazonaws.com/student-app:1b62118d33d48218231f5c021e5129daaa95e8e2\n          imagePullPolicy: Always\n          ports:\n            - name: http\n              containerPort: 5000\n          readinessProbe:\n            httpGet:\n              path: /health\n              port: http\n            initialDelaySeconds: 5\n            periodSeconds: 10\n          livenessProbe:\n            httpGet:\n              path: /health\n              port: http\n            initialDelaySeconds: 15\n            periodSeconds: 20\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              cpu: 500m\n              memory: 256Mi\n          securityContext:\n            allowPrivilegeEscalation: false\n            runAsNonRoot: true\n            runAsUser: 10001\n            capabilities:\n              drop: ["ALL"]\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: student-app-service\nspec:\n  type: LoadBalancer\n  selector:\n    app: student-app\n  ports:\n    - name: http\n      port: 80\n      targetPort: http\n      protocol: TCP\n
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-app
+  labels:
+    app: student-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-app
+  template:
+    metadata:
+      labels:
+        app: student-app
+    spec:
+      containers:
+        - name: student-app
+          image: 029223413380.dkr.ecr.ap-south-1.amazonaws.com/student-app:1b62118d33d48218231f5c021e5129daaa95e8e2
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
