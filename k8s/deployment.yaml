@@ -17,7 +17,7 @@ spec:
       containers:
         - name: student-app
           # GitHub Actions replaces this placeholder with the ECR image URI.
-          image: ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/student-app:bootstrap
+          image: 029223413380.dkr.ecr.ap-south-1.amazonaws.com/student-app:latest
           imagePullPolicy: Always
           ports:
             - name: http
