@@ -1,0 +1,14 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: student-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000
+      protocol: TCP
